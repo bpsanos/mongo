@@ -1,13 +1,10 @@
-//dependencies
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var logger = require("morgan");
 
-//initialize Express app
+
 var express = require("express");
 var app = express();
 
-app.use(logger("dev"));
 app.use(
   bodyParser.urlencoded({
     extended: false
@@ -25,16 +22,15 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-//connecting to MongoDB
-//mongoose.connect("mongodb://localhost/scraped_news");
+//connecting to Mongo
 const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/scraper_news";
+  process.env.MONGODB_URI || "mongodb://localhost/mongo";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function() {
-  console.log("Connected to Mongoose!");
+  console.log("Connected");
 });
 
 var routes = require("./controller/controller.js");
