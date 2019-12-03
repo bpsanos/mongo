@@ -17,16 +17,7 @@ router.get("/scrape", function(req, res) {
     var $ = cheerio.load(html);
     var titlesArray = [];
 
-    $(".c-entry-box--compact__title").each(function(i, element) {
-      var result = {};
-
-      result.title = $(this)
-        .children("a")
-        .text();
-      result.link = $(this)
-        .children("a")
-        .attr("href");
-
+  
       if (result.title !== "" && result.link !== "") {
         if (titlesArray.indexOf(result.title) == -1) {
           titlesArray.push(result.title);
